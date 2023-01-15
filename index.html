@@ -43,7 +43,7 @@
         const Title = () => ( ... );
         */
 
-        const Container = (
+        const Container = () => (
             // < /> 는 우리가 만든 컴포넌트를 복사 붙혀넣기 한다는 의미!
             // 우리가 만든 컴포넌트는 반드시 UpperCase로 해줘야 한다.
             // lowerCase로하면 웹은 HTML 태그라고 착각함
@@ -54,6 +54,6 @@
             </div>
         );
 
-        ReactDOM.render(Container, root);
+        ReactDOM.render(<Container />, root);
     </script>
 </html>
