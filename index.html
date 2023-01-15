@@ -17,10 +17,21 @@
 
     <script>
         const root = document.getElementById('root');
-        //생성하고자 하는 html 태그
-        //creactElement('태그', {클래스: '클래스명'});
-        const span = React.createElement('span', { id: 'span', style: { color: 'red' } }, '안녕하세요');
-        //render(랜더할 변수명, 배치할위치)
-        ReactDOM.render(span, root); //React.creactElement를 가지고 HTML로 만들어 배치한다는 의미
+
+        const title = React.createElement('h2', { id: 'main-title', onMouseOver: () => console.log('타이틀에 마우스가 감지 되었습니다.') }, '안녕하세요');
+        const btn = React.createElement(
+            'button',
+            {
+                //JS의 addEventListener() 대신 React에서는 onClick과 같은 이벤트를 사용한다.
+                //다양한 React EventListener: https://ko.reactjs.org/docs/events.html
+                onClick: () => console.log('클릭 되었습니다.'),
+                style: { border: 'none', backgroundColor: 'blue', padding: '0.5rem 1rem', borderRadius: '1rem', color: 'white' },
+            },
+            '클릭'
+        );
+        //container를 만들어 span과 btn과 같은 태그를 배열로 묶어 render해준다.
+        const container = React.createElement('div', null, [title, btn]);
+
+        ReactDOM.render(container, root);
     </script>
 </html>
