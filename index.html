@@ -20,34 +20,40 @@
         //type="text/babel" 을 넣어줘야 JSX로 작성된 코드를 브라우저가 이해할 수 있다.
         const root = document.getElementById('root');
 
-        //JSX를 사용한 방법 (이 방법을 제일 많이 사용함)
-        const Title = (
+        //Title에 arrow function을 사용해 함수로 변경해줌!
+        const Title = () => (
             <h3 id="main-title" onMouseOver={() => console.log('타이틀에 마우스가 감지 되었습니다.')}>
                 안녕하세요
             </h3>
         );
-        const NewBtn = (
+        const NewBtn = () => (
             <button id="new-btn" onClick={() => console.log('클릭 되었습니다.')} style={{ border: 'none', backgroundColor: 'blue', padding: '0.5rem 1rem', borderRadius: '1rem', color: 'white' }}>
                 클릭
             </button>
         );
 
-        /* 아래 방법은 절때 사용하지 않음 (기본 구조만 이해하면 됨)
-        const title = React.createElement('h2', { id: 'main-title', onMouseOver: () => console.log('타이틀에 마우스가 감지 되었습니다.') }, '안녕하세요');
+        /* container 부분도 JSX 방식으로 불러와보자! */
+        //const container = React.createElement('div', null, [Title, NewBtn]);
 
-        const btn = React.createElement(
-            'button',
-            {
-                id="new-btn"
-                onClick: () => console.log('클릭 되었습니다.'),
-                style: { border: 'none', backgroundColor: 'blue', padding: '0.5rem 1rem', borderRadius: '1rem', color: 'white' },
-            },
-            '클릭'
-        );
+        /*
+        JSX에서 Title과 같은 태그를 가져오기 위해서는 해당 변수를 함수로 변경해줘야 한다.
+        = () => ( ); 는 function Btn() { return ( ); } 와 같음
+
+        const Title = ( ... ); ➜
+        const Title = () => ( ... );
         */
 
-        const container = React.createElement('div', null, [Title, NewBtn]);
+        const Container = (
+            // < /> 는 우리가 만든 컴포넌트를 복사 붙혀넣기 한다는 의미!
+            // 우리가 만든 컴포넌트는 반드시 UpperCase로 해줘야 한다.
+            // lowerCase로하면 웹은 HTML 태그라고 착각함
+            <div>
+                <button>테스트 버튼</button>
+                <Title />
+                <NewBtn />
+            </div>
+        );
 
-        ReactDOM.render(container, root);
+        ReactDOM.render(Container, root);
     </script>
 </html>
