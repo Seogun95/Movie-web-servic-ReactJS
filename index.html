@@ -37,15 +37,19 @@
 
         function App() {
             //React.useState는 default value를 넣어줄 수 있다.
-            console.log(React.useState(0));
-            const [counter, modifier] = React.useState(0);
+            let [counter, setCounter] = React.useState(0);
+            const countUp = () => {
+                setCounter((counter += 1)); // modifier 함수를 호출해 re-render 기능을 사용할 수 있다.
+            };
 
             // const counter = data[0];
             // const modifier = data[1];
             return (
                 <div>
                     <h3 id="main-title">클릭 횟수:{counter}</h3>
-                    <button id="new-btn">카운트 올리기</button>
+                    <button id="new-btn" onClick={countUp}>
+                        카운트 올리기
+                    </button>
                 </div>
             );
         }
