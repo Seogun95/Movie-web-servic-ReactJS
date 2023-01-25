@@ -18,27 +18,38 @@
     <script type="text/babel">
         const root = document.getElementById('root');
 
+        /*
+        아래 코드는 const data = React.useState(0)와 같다.
+
         let counter = 0;
-
         function countUp() {
-            counter = counter + 1;
+            counter = counter += 1;
             console.log(counter);
-            render();
+        }
+        */
+
+        /* 배열 호출의 shortcut
+        const animals = ['호랑이', '사자', '고양이'];
+        // console.log(animals[1]); //사자
+        const [first, second, third] = animals;
+        console.log(second); //호랑이
+        */
+
+        function App() {
+            //React.useState는 default value를 넣어줄 수 있다.
+            console.log(React.useState(0));
+            const [counter, modifier] = React.useState(0);
+
+            // const counter = data[0];
+            // const modifier = data[1];
+            return (
+                <div>
+                    <h3 id="main-title">클릭 횟수:{counter}</h3>
+                    <button id="new-btn">카운트 올리기</button>
+                </div>
+            );
         }
 
-        function render() {
-            ReactDOM.render(<Container />, root);
-        }
-
-        const Container = () => (
-            <div>
-                <h3 id="main-title">클릭 횟수: {counter}</h3>
-                <button id="new-btn" onClick={countUp}>
-                    카운트 올리기
-                </button>
-            </div>
-        );
-
-        render();
+        ReactDOM.render(<App />, root);
     </script>
 </html>
