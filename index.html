@@ -61,11 +61,51 @@
             );
         }
         function KgToGram() {
-            return <div></div>;
+            const [kgValue, setKgValue] = React.useState('');
+            const [filpped, setFlipped] = React.useState(false);
+            const onChange = (event) => {
+                setKgValue(event.target.value);
+            };
+            const onFlip = (event) => {
+                reset();
+                setFlipped((current) => !current);
+            };
+            const reset = () => {
+                setKgValue('');
+            };
+
+            return (
+                <div>
+                    <div>
+                        <lable htmlFor="kilograms">Kg</lable>
+                        <input
+                            value={filpped ? parseFloat(kgValue / 1000) : kgValue}
+                            id="kilograms"
+                            type="number"
+                            placeholder="kg"
+                            onChange={onChange}
+                            disabled={filpped}
+                        />
+                    </div>
+                    <div>
+                        <lable htmlFor="grams">g</lable>
+                        <input
+                            value={filpped ? kgValue : kgValue * 1000}
+                            id="grams"
+                            type="number"
+                            placeholder="g"
+                            onChange={onChange}
+                            disabled={!filpped}
+                        />
+                    </div>
+                    <button onClick={reset}>초기화</button>
+                    <button onClick={onFlip}>반대로 계산 </button>
+                </div>
+            );
         }
 
         function App() {
-            const [index, setIndex] = React.useState('0'); // item이 데이터가 되고 그데이터가 수정되는 부분인데, UI를 refresh 해주기 위함이다.
+            const [index, setIndex] = React.useState('1'); // item이 데이터가 되고 그데이터가 수정되는 부분인데, UI를 refresh 해주기 위함이다.
             const onSelect = (event) => {
                 setIndex(event.target.value);
             };
