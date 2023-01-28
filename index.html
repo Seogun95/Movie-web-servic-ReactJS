@@ -20,8 +20,8 @@
     <!--ReactJS 구현부-->
     <script type="text/babel">
         const root = document.getElementById('root');
-        function App() {
-            const [amount, setAmount] = React.useState(0);
+        function MinutesToHours() {
+            const [amount, setAmount] = React.useState();
             const [flipped, setFlipped] = React.useState(false);
             const onChange = (event) => {
                 setAmount(event.target.value);
@@ -33,7 +33,6 @@
             const reset = () => setAmount(0); //초기화 함수
             return (
                 <div>
-                    <h1>계산기</h1>
                     <div>
                         <lable htmlFor="minutes">분</lable>
                         <input
@@ -58,6 +57,29 @@
                     </div>
                     <button onClick={reset}>초기화</button>
                     <button onClick={onFlip}>반대로 계산 </button>
+                </div>
+            );
+        }
+        function KgToGram() {
+            return <div></div>;
+        }
+
+        function App() {
+            const [index, setIndex] = React.useState('0'); // item이 데이터가 되고 그데이터가 수정되는 부분인데, UI를 refresh 해주기 위함이다.
+            const onSelect = (event) => {
+                setIndex(event.target.value);
+            };
+            return (
+                <div>
+                    <h1>최고의 변환기</h1>
+                    <select value={index} onChange={onSelect}>
+                        <option value="0">분 ➜ 시간 계산기</option>
+                        <option value="1">Kg ➜ g 계산기</option>
+                    </select>
+                    <hr />
+                    {/* { } 안에는 JS를 사용할 수 있다. */}
+                    {index === '0' ? <MinutesToHours /> : null}
+                    {index === '1' ? <KgToGram /> : null}
                 </div>
             );
         }
