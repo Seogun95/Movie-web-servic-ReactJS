@@ -19,111 +19,34 @@
 
     <!--ReactJS 구현부-->
     <script type="text/babel">
-        const root = document.getElementById('root');
-        function MinutesToHours() {
-            const [amount, setAmount] = React.useState();
-            const [flipped, setFlipped] = React.useState(false);
-            const onChange = (event) => {
-                setAmount(event.target.value);
-            };
-            const onFlip = () => {
-                reset();
-                setFlipped((current) => !current);
-            };
-            const reset = () => setAmount(0); //초기화 함수
+        //컴포넌트 만들기
+        //Btn 컴포넌트의 인자값으로 object 속성을 넣어주면 컴포넌트로 사용 가능. (props.someProps === somepProps)
+        function Btn({ someProps, istrue }) {
+            console.log(someProps, istrue);
             return (
-                <div>
-                    <div>
-                        <lable htmlFor="minutes">분</lable>
-                        <input
-                            value={flipped ? amount * 60 : amount}
-                            id="minutes"
-                            placeholder="분"
-                            type="number"
-                            onChange={onChange}
-                            disabled={flipped}
-                        />
-                    </div>
-                    <div>
-                        <lable htmlFor="hours">시간</lable>
-                        <input
-                            value={flipped ? amount : Math.round(amount / 60)}
-                            id="hours"
-                            placeholder="시간"
-                            type="number"
-                            onChange={onChange}
-                            disabled={!flipped}
-                        />
-                    </div>
-                    <button onClick={reset}>초기화</button>
-                    <button onClick={onFlip}>반대로 계산 </button>
-                </div>
-            );
-        }
-        function KgToGram() {
-            const [kgValue, setKgValue] = React.useState('');
-            const [filpped, setFlipped] = React.useState(false);
-            const onChange = (event) => {
-                setKgValue(event.target.value);
-            };
-            const onFlip = (event) => {
-                reset();
-                setFlipped((current) => !current);
-            };
-            const reset = () => {
-                setKgValue('');
-            };
-
-            return (
-                <div>
-                    <div>
-                        <lable htmlFor="kilograms">Kg</lable>
-                        <input
-                            value={filpped ? parseFloat(kgValue / 1000) : kgValue}
-                            id="kilograms"
-                            type="number"
-                            placeholder="kg"
-                            onChange={onChange}
-                            disabled={filpped}
-                        />
-                    </div>
-                    <div>
-                        <lable htmlFor="grams">g</lable>
-                        <input
-                            value={filpped ? kgValue : kgValue * 1000}
-                            id="grams"
-                            type="number"
-                            placeholder="g"
-                            onChange={onChange}
-                            disabled={!filpped}
-                        />
-                    </div>
-                    <button onClick={reset}>초기화</button>
-                    <button onClick={onFlip}>반대로 계산 </button>
-                </div>
+                <button
+                    style={{
+                        backgroundColor: istrue ? 'green' : 'tomato',
+                        color: 'white',
+                        padding: '1rem',
+                        border: 'none',
+                        borderRadius: '1rem',
+                    }}
+                >
+                    {someProps}
+                </button>
             );
         }
 
         function App() {
-            const [index, setIndex] = React.useState('1'); // item이 데이터가 되고 그데이터가 수정되는 부분인데, UI를 refresh 해주기 위함이다.
-            const onSelect = (event) => {
-                setIndex(event.target.value);
-            };
             return (
                 <div>
-                    <h1>최고의 변환기</h1>
-                    <select value={index} onChange={onSelect}>
-                        <option value="0">분 ➜ 시간 계산기</option>
-                        <option value="1">Kg ➜ g 계산기</option>
-                    </select>
-                    <hr />
-                    {/* { } 안에는 JS를 사용할 수 있다. */}
-                    {index === '0' ? <MinutesToHours /> : null}
-                    {index === '1' ? <KgToGram /> : null}
+                    <Btn someProps="확인 버튼" istrue={true} />
+                    <Btn someProps="저장" istrue={false} />
                 </div>
             );
         }
-
+        const root = document.getElementById('root');
         ReactDOM.render(<App />, root);
     </script>
 </html>
