@@ -20,29 +20,37 @@
     <!--ReactJS 구현부-->
     <script type="text/babel">
         //컴포넌트 만들기
-        //Btn 컴포넌트의 인자값으로 object 속성을 넣어주면 컴포넌트로 사용 가능. (props.someProps === somepProps)
-        function Btn({ someProps, istrue }) {
-            console.log(someProps, istrue);
-            return (
-                <button
-                    style={{
-                        backgroundColor: istrue ? 'green' : 'tomato',
-                        color: 'white',
-                        padding: '1rem',
-                        border: 'none',
-                        borderRadius: '1rem',
-                    }}
-                >
-                    {someProps}
-                </button>
-            );
-        }
-
-        function App() {
+        const Btn = React.memo(({ text, istrue, changedValue }) => {
+            console.log(text, '버튼이 렌더링 됨');
             return (
                 <div>
-                    <Btn someProps="확인 버튼" istrue={true} />
-                    <Btn someProps="저장" istrue={false} />
+                    <button
+                        onClick={changedValue}
+                        style={{
+                            backgroundColor: istrue ? 'green' : 'tomato',
+                            color: 'white',
+                            padding: '1rem',
+                            border: 'none',
+                            borderRadius: '1rem',
+                        }}
+                    >
+                        {text}
+                    </button>
+                </div>
+            );
+        });
+
+        function App() {
+            const [value, setValue] = React.useState('확인하기');
+            const changedValue = () => {
+                setValue('확인 완료!');
+            };
+            return (
+                <div>
+                    {/*컴포넌트안에서의 changedValue은 이벤트리스너가 아니라, 속성일 뿐이다.
+                        때문에 컴포넌트 안에 Style={{}}을 줄 수 없다.*/}
+                    <Btn text={value} istrue={true} changedValue={changedValue} />
+                    <Btn text="저장" istrue={false} />
                 </div>
             );
         }
