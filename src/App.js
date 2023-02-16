@@ -1,14 +1,33 @@
-//Button.js를 import 해온다.
-import Btn from './Btn.js';
-import styles from './App.module.css';
+import { useState } from 'react';
 
 function App() {
-    return (
-        <div>
-            <h1 className={styles.title}>ReactJS 시작</h1>
-            <Btn text={'클릭'} />
-        </div>
-    );
+  const [todo, setTodo] = useState('');
+  const [todoList, setTodoList] = useState([]);
+  const onChangeHandler = (e) => setTodo(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (todo !== '') {
+      setTodoList((currentArray) => [todo, ...currentArray]);
+      setTodo('');
+    }
+    console.log(todoList);
+  };
+
+  return (
+    <div>
+      <h1> 나의 Todo List {todoList.length}</h1>
+      <form onSubmit={onSubmit}>
+        <input value={todo} onChange={onChangeHandler} />
+        <button>작성</button>
+      </form>
+      <hr />
+      <div>
+        {todoList.map((item, i) => (
+          <div key={i}>{item}</div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default App;
