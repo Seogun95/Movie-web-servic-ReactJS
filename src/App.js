@@ -1,32 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
-  const [todo, setTodo] = useState('');
-  const [todoList, setTodoList] = useState([]);
-  const onChangeHandler = (e) => setTodo(e.target.value);
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (todo !== '') {
-      setTodoList((currentArray) => [todo, ...currentArray]);
-      setTodo('');
-    }
-    console.log(todoList);
-  };
+  const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState([]);
+
+  //컴포넌트가 시작할때 API를 불러오고싶다면 useEffect 사용.
+  useEffect(() => {
+    fetch('https://api.coinpaprika.com/v1/tickers?limit=100000')
+      .then((response) => response.json())
+      .then((json) => {
+        setCoins(json);
+        setLoading(false);
+        console.log(json);
+      });
+  }, []);
 
   return (
-    <div>
-      <h1> 나의 Todo List {todoList.length}</h1>
-      <form onSubmit={onSubmit}>
-        <input value={todo} onChange={onChangeHandler} />
-        <button>작성</button>
-      </form>
-      <hr />
-      <div>
-        {todoList.map((item, i) => (
-          <div key={i}>{item}</div>
-        ))}
-      </div>
-    </div>
+    <>
+      <h1> Coins! {loading ? '' : `(${coins.length})`} </h1>
+      {loading ? (
+        <b> Loading...</b>
+      ) : (
+        <select>
+          {coins.map((item, i) => (
+            <option key={i}>
+              {item.name} ({item.symbol}): ${~~item.quotes.USD.price}
+            </option>
+          ))}
+        </select>
+      )}
+    </>
   );
 }
 
